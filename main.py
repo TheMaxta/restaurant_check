@@ -1,3 +1,4 @@
+import json
 from utils.ocr import extract_text_from_image
 from utils.processing import create_check_from_text, add_metadata_to_items
 from utils.models import Check
@@ -21,4 +22,5 @@ def process_check(image_path, tip_percentage=15, num_people=1):
 if __name__ == "__main__":
     image_path = 'topchefbill2.jpeg'
     check = process_check(image_path, tip_percentage=18, num_people=4)
-    print(check.json(indent=2))
+
+    print(json.dumps(check.dict(), indent=2))

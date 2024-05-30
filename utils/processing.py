@@ -1,5 +1,5 @@
 from utils.models import Check, Item
-from utils.openai_api.py import extract_item_metadata
+from utils.openai_api import extract_item_metadata
 
 def create_check_from_text(text):
     items = []

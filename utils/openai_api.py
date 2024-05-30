@@ -1,12 +1,22 @@
-import openai
+import os
+from openai import OpenAI
 from config import OPENAI_API_KEY
 
-openai.api_key = OPENAI_API_KEY
+
+client = OpenAI(
+    # This is the default and can be omitted
+    api_key=os.environ.get("OPENAI_API_KEY"),
+)
+
 
 def extract_item_metadata(item_name):
-    response = openai.Completion.create(
-        model="text-davinci-003",
-        prompt=f"Extract metadata for the restaurant item: {item_name}",
-        max_tokens=50
+    chat_completion = client.chat.completions.create(
+        messages=[
+            {
+                "role": "user",
+                "content": f"Extract metadata for the restaurant item: {item_name}"
+            }
+        ],
+        model="gpt-3.5-turbo",
     )
-    return response.choices[0].text.strip()
+    return chat_completion
